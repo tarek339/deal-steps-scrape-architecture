@@ -10,6 +10,7 @@ beautifulsoup4 = "*"
 django-debug-toolbar = "*"
 django-environ = "*"
 requests = "*"
+djangorestframework = "*"
 
 [dev-packages]
 

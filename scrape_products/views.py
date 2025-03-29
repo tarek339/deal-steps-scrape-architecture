@@ -2,6 +2,7 @@ from django.shortcuts import render
 import pandas as pd
 from urllib.parse import urlparse
 import scrape_products
+from scrape_products.models import Product
 
 
 def update_products():
@@ -121,47 +122,47 @@ def update_products():
     )
 
     # Save products into the database
-    # for product in products:
-    #     product = Product(
-    #         shopName=product["shopName"],
-    #         brand=product["description"].split()[0],
-    #         description=product["description"],
-    #         price=product["price"],
-    #         imageUrl=product["imageUrl"],
-    #     )
-    #     product.save()
+    for product in products:
+        product = Product(
+            shopName=product["shopName"],
+            brand=product["description"].split()[0],
+            description=product["description"],
+            price=product["price"],
+            imageUrl=product["imageUrl"],
+        )
+        product.save()
 
     products_data = []
 
     # Iterate over the products and construct the data
-    # for index, product in enumerate(products):
-    #     # split the url to get the domain
-    #     url = urlparse(product["url"]).netloc
-    #     fixed_url = (
-    #         "https://" + url if url.endswith(".de") or url.endswith(".com") else ""
-    #     )
-    #     # construct the product data
-    #     products_data.append(
-    #         {
-    #             "Nr.": index + 1,
-    #             "shopName": product["shopName"],
-    #             "brand": product["description"].split()[0],
-    #             "description": product["description"],
-    #             "price": product["price"],
-    #             "imageUrl": (
-    #                 # include https:// if the url does not start with it
-    #                 fixed_url + product["imageUrl"]
-    #                 if not product["imageUrl"].startswith("https://")
-    #                 else product["imageUrl"]
-    #             ),
-    #             "url": product["url"],
-    #         }
-    #     )
+    for index, product in enumerate(products):
+        # split the url to get the domain
+        url = urlparse(product["url"]).netloc
+        fixed_url = (
+            "https://" + url if url.endswith(".de") or url.endswith(".com") else ""
+        )
+        # construct the product data
+        products_data.append(
+            {
+                "Nr.": index + 1,
+                "shopName": product["shopName"],
+                "brand": product["description"].split()[0],
+                "description": product["description"],
+                "price": product["price"],
+                "imageUrl": (
+                    # include https:// if the url does not start with it
+                    fixed_url + product["imageUrl"]
+                    if not product["imageUrl"].startswith("https://")
+                    else product["imageUrl"]
+                ),
+                "url": product["url"],
+            }
+        )
 
     # Convert to pandas DataFrame
-    # df = pd.DataFrame(products_data)
+    df = pd.DataFrame(products_data)
     # Optionally, save the DataFrame to a CSV file
-    # df.to_csv("products_table.csv", index=False)
+    df.to_csv("products_table.csv", index=False)
 
     # 1. Sort the products by description
     # - Use a method to trim by brand name and type

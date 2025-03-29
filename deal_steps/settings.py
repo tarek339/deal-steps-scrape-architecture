@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
     "bs4",
     "pandas",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
