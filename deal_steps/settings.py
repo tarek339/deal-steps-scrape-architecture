@@ -101,7 +101,7 @@ WSGI_APPLICATION = "deal_steps.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": env("POSTGRE_ENGINE"),
-        "NAME": "postgres",
+        "NAME": env("POSTGRE_NAME"),
         "USER": env("POSTGRE_USER"),
         "PASSWORD": env("POSTGRE_PASSWORD"),
         "HOST": env("POSTGRE_HOST"),  # oder die Adresse Ihres PostgreSQL-Servers
